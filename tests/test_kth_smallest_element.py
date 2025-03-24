@@ -1,0 +1,52 @@
+import pytest
+from src.kth_smallest_element import find_kth_smallest
+
+def test_find_kth_smallest_basic():
+    """Test basic functionality of finding kth smallest element"""
+    arr = [7, 10, 4, 3, 20, 15]
+    assert find_kth_smallest(arr, 3) == 7
+    assert find_kth_smallest(arr, 1) == 3
+    assert find_kth_smallest(arr, 6) == 20
+
+def test_find_kth_smallest_with_duplicates():
+    """Test finding kth smallest with duplicate elements"""
+    arr = [7, 7, 4, 4, 3, 3]
+    assert find_kth_smallest(arr, 3) == 4
+    assert find_kth_smallest(arr, 1) == 3
+
+def test_find_kth_smallest_single_element():
+    """Test finding kth smallest in a single-element array"""
+    arr = [5]
+    assert find_kth_smallest(arr, 1) == 5
+
+def test_find_kth_smallest_invalid_k():
+    """Test error handling for invalid k values"""
+    arr = [7, 10, 4, 3, 20, 15]
+    
+    # k less than 1
+    with pytest.raises(ValueError, match="k must be between 1 and 6"):
+        find_kth_smallest(arr, 0)
+    
+    # k greater than array length
+    with pytest.raises(ValueError, match="k must be between 1 and 6"):
+        find_kth_smallest(arr, 7)
+
+def test_find_kth_smallest_invalid_inputs():
+    """Test error handling for invalid input types"""
+    # Non-list input
+    with pytest.raises(TypeError, match="Input must be a list"):
+        find_kth_smallest(123, 1)
+    
+    # Non-integer k
+    with pytest.raises(TypeError, match="k must be an integer"):
+        find_kth_smallest([1, 2, 3], "2")
+    
+    # Empty list
+    with pytest.raises(ValueError, match="Input array cannot be empty"):
+        find_kth_smallest([], 1)
+
+def test_find_kth_smallest_negative_numbers():
+    """Test finding kth smallest with negative numbers"""
+    arr = [-5, -2, 0, 3, 7, 10]
+    assert find_kth_smallest(arr, 2) == -2
+    assert find_kth_smallest(arr, 4) == 3
