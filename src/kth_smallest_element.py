@@ -20,13 +20,13 @@ def find_kth_smallest(arr, k):
     if not isinstance(k, int):
         raise TypeError("k must be an integer")
     
+    # Check for empty list first
+    if not arr:
+        raise ValueError("Input array cannot be empty")
+    
     # Check for invalid k values
     if k < 1 or k > len(arr):
         raise ValueError(f"k must be between 1 and {len(arr)}, got {k}")
-    
-    # Edge case for empty list
-    if not arr:
-        raise ValueError("Input array cannot be empty")
     
     # Use Python's built-in sorting for simplicity and efficiency
     sorted_arr = sorted(arr)
